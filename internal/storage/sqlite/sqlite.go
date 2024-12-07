@@ -110,3 +110,28 @@ func (s *Sqlite) GetStudents() ([]types.Student, error) {
 	return students, nil
 
 }
+
+func (s *Sqlite) UpdateStudentById(id int64, name, email string, age int) error {
+
+	stmt, err := s.Db.Prepare("UPDATE students SET name = ?, email = ?, age = ? WHERE id = ?")
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	result, err := stmt.Exec(name, email, age, id)
+	if err != nil {
+		return fmt.Errorf("query error: %w", err)
+	}
+
+	_, err = result.RowsAffected()
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (s *Sqlite) DeleteStudentById(id int64) (types.Student, error) {
+	return types.Student{}, nil
+}
