@@ -12,7 +12,7 @@ import (
 
 	"github.com/sureshchandak1/go-crud-api/internal/config"
 	"github.com/sureshchandak1/go-crud-api/internal/http/handlers/student"
-	"github.com/sureshchandak1/go-crud-api/internal/storage/sqlite"
+	"github.com/sureshchandak1/go-crud-api/internal/storage/postgres"
 )
 
 func main() {
@@ -21,7 +21,8 @@ func main() {
 	cfg := config.MustLoad()
 
 	// database setup
-	storage, err := sqlite.New(cfg)
+	// storage, err := sqlite.New(cfg)
+	storage, err := postgres.New(cfg)
 	if err != nil {
 		log.Fatal(err)
 	}
